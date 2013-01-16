@@ -1,0 +1,24 @@
+pkgname=lua
+pkgver=5.2.1
+pkgrel=1
+pkgdesc="lua programming language"
+arch=(armv6)
+url="http://www.lua.org"
+license=("MIT")
+makedepends=("")
+source=("http://www.lua.org/ftp/${pkgname}-${pkgver}.tar.gz" "lua.patch")
+md5sums=("ae08f641b45d737d12d30291a5e5f6e3" "a06fd3c55a54a451cfcb6484bdfab0a4")
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -Np1 -i ../lua.patch
+  make MYCFLAGS="$CFLAGS" MYLDFLAGS="$LDFLAGS" generic || return 1
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make INSTALL_DATA="cp -d" \
+       INSTALL_TOP="$pkgdir/usr" \
+       INSTALL_MAN="$pkgdir/usr/share/man/man1" \
+        install
+}

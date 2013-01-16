@@ -1,0 +1,44 @@
+pkgname=pirix
+pkgver=20130116
+pkgrel=1
+pkgdesc="pirix kernel"
+arch=(armv6)
+url="http://www.pirix.org"
+license=GPL3
+makedepends=("git" "cmake>=2.8")
+
+_gitroot="git://github.com/pirix/pirix.git"
+_gitname="pirix"
+
+build() {
+  cd "${srcdir}"
+
+  msg "Connecting to GIT server...."
+
+  if [ -d $_gitname ] ; then
+    cd $_gitname && git pull origin
+    msg "The local files are updated."
+  else
+    git clone $_gitroot $_gitname
+  fi
+
+  msg "GIT checkout done or server timeout"
+  msg "Starting make..."
+
+  rm -rf "$srcdir/$_gitname-build"
+  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+  cd "$srcdir/$_gitname-build"
+
+  mkdir -p build
+  cd build
+  unset CFLAGS
+  cmake -DCMAKE_INSTALL_PREFIX="" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DPLATFORM=$PLATFORM ..
+  make || return 1
+}
+
+package() {
+  cd "${srcdir}/$_gitname-build/build"
+  make DESTDIR="${pkgdir}" install
+}

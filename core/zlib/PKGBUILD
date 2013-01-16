@@ -1,0 +1,22 @@
+pkgname=zlib
+pkgver=1.2.7
+pkgrel=1
+pkgdesc="package manager"
+arch=("armv6")
+url="http://www.zlib.net"
+license=("MIT")
+makedepends=("")
+group=("base")
+source=("http://zlib.net/zlib-1.2.7.tar.gz")
+md5sums=("60df6a37c56e7c1366cca812414f7b85")
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --static --prefix=/usr
+  make || return 1
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+}

@@ -1,0 +1,22 @@
+pkgname=pacman
+pkgver=4.0.3
+pkgrel=1
+pkgdesc="package manager"
+arch=("armv6")
+url="http://www.archlinux.org/pacman/"
+license=("GPL2")
+makedepends=("")
+group=("base")
+source=("ftp://ftp.archlinux.org/other/pacman/${pkgname}-${pkgver}.tar.gz")
+md5sums=("387965c7125e60e5f0b9ff3b427fe0f9")
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  ./configure --prefix=/usr
+  make || return 1
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+}
