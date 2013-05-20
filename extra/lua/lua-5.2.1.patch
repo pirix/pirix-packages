@@ -1,0 +1,12 @@
+diff -aur lua-5.2.1-fresh/src/Makefile lua-5.2.1/src/Makefile
+--- lua-5.2.1-fresh/src/Makefile	2012-03-09 17:32:16.000000000 +0100
++++ lua-5.2.1/src/Makefile	2013-05-20 18:57:55.895611287 +0200
+@@ -6,7 +6,7 @@
+ # Your platform. See PLATS for possible values.
+ PLAT= none
+ 
+-CC= gcc
++CC= $(TARGET)-gcc
+ CFLAGS= -O2 -Wall -DLUA_COMPAT_ALL $(SYSCFLAGS) $(MYCFLAGS)
+ LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
+ LIBS= -lm $(SYSLIBS) $(MYLIBS)

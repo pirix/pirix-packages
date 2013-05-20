@@ -1,22 +1,21 @@
 pkgname=zlib
-pkgver=1.2.7
+pkgver=1.2.8
 pkgrel=1
-pkgdesc="package manager"
-arch=("armv6")
+pkgdesc="compression library"
+arch=(i386 armv6)
 url="http://www.zlib.net"
-license=("MIT")
-makedepends=("")
-group=("base")
-source=("http://zlib.net/zlib-1.2.7.tar.gz")
-md5sums=("60df6a37c56e7c1366cca812414f7b85")
+license=(MIT)
+group=(base)
+source=("http://zlib.net/zlib-1.2.8.tar.gz")
+md5sums=("44d667c142d7cda120332623eab69f40")
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  ./configure --static --prefix=/usr
-  make || return 1
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    CC=$CHOST-gcc ./configure --static --prefix=/usr
+    make || return 1
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make DESTDIR="${pkgdir}" install
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    make DESTDIR="${pkgdir}" install
 }

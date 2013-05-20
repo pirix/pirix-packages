@@ -1,0 +1,12 @@
+diff -rupN newlib-2.0.0/config.sub newlib-2.0.0-pirix/config.sub
+--- newlib-2.0.0/config.sub	2012-12-08 01:02:34.000000000 +0100
++++ newlib-2.0.0-pirix/config.sub	2012-12-26 19:36:03.985675652 +0100
+@@ -1354,7 +1354,7 @@ case $os in
+ 	# The portable systems comes first.
+ 	# Each alternative MUST END IN A *, to match a version number.
+ 	# -sysv* is not here because it comes later, after sysvr4.
+-	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
++	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* | -pirix* \
+ 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
+ 	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
+ 	      | -sym* | -kopensolaris* \

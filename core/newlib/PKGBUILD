@@ -1,0 +1,34 @@
+pkgname=newlib
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="C standard library"
+arch=(i386 armv6)
+url="http://sourceware.org/newlib/"
+license=(BSD)
+group=(base)
+source=(
+  "ftp://sourceware.org/pub/${pkgname}/${pkgname}-${pkgver}.tar.gz"
+  "${pkgname}-2.0.0.patch"
+)
+md5sums=(
+  "e3e936235e56d6a28afb2a7f98b1a635"
+  "689751374dd2dfa7d6aa12a7de36ec0c"
+)
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+
+    patch -p1 -i $srcdir/${pkgname}-2.0.0.patch
+
+    ./configure --prefix=/usr --target=$CHOST \
+      --enable-interwork --with-gnu-ld --with-gnu-as \
+      --without-libgloss --disable-libgloss \
+      --disable-newlib-supplied-syscalls
+
+    make || return 1
+}
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    make DESTDIR="${pkgdir}" install
+}

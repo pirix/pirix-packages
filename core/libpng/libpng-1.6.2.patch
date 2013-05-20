@@ -1,0 +1,12 @@
+diff -aur libpng-1.6.2-fresh/config.sub libpng-1.6.2/config.sub
+--- libpng-1.6.2-fresh/config.sub	2013-02-07 02:21:04.000000000 +0100
++++ libpng-1.6.2/config.sub	2013-05-20 17:01:46.710678038 +0200
+@@ -1354,7 +1354,7 @@
+ 	# The portable systems comes first.
+ 	# Each alternative MUST END IN A *, to match a version number.
+ 	# -sysv* is not here because it comes later, after sysvr4.
+-	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
++	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* | -pirix* \
+ 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
+ 	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
+ 	      | -sym* | -kopensolaris* \

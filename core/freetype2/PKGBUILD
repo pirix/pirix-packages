@@ -1,0 +1,29 @@
+pkgname=freetype2
+pkgver=2.4.12
+pkgrel=1
+pkgdesc="font rendering library"
+arch=("i386" "armv6")
+url="http://freetype.sourceforge.net"
+license=("GPL")
+source=("http://downloads.sourceforge.net/sourceforge/freetype/freetype-${pkgver}.tar.bz2"
+        "freetype-2.4.12.patch")
+md5sums=("3463102764315eb86c0d3c2e1f3ffb7d"
+         "0f491243efd920fdc451093a5c46865b")
+
+build() {
+    cd "${srcdir}/freetype-${pkgver}"
+    patch -p1 -i $srcdir/freetype-${pkgver}.patch
+    ./configure --host=$CHOST --prefix=/usr
+    make || return 1
+}
+
+check() {
+    cd "${srcdir}/freetype-${pkgver}"
+    make -k check
+}
+
+
+package() {
+    cd "${srcdir}/freetype-${pkgver}"
+    make DESTDIR="${pkgdir}" install
+}

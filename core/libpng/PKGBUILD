@@ -1,0 +1,30 @@
+pkgname=libpng
+pkgver=1.6.2
+pkgrel=1
+pkgdesc="libpng is the official PNG reference library"
+arch=("i386" "armv6")
+url="http://www.libpng.org/pub/png/libpng.html"
+license=("custom")
+source=(
+  "http://downloads.sourceforge.net/sourceforge/$pkgname/$pkgname-$pkgver.tar.xz"
+  "libpng-1.6.2.patch"
+)
+md5sums=(
+  "9d838f6fca9948a9f360a0cc1b516d5f"
+  "5f27798b9e0b367c416bfbdbbb0a20e9"
+)
+
+build() {
+    cd ${pkgname}-${pkgver}
+    patch -p1 -i $srcdir/${pkgname}-${pkgver}.patch
+    echo $LIBRARY_PATH > /tmp/lib_path
+    echo $CFLAGS > /tmp/cflags
+    ./configure --host=$CHOST --prefix=/usr
+    make || return 1
+}
+
+package() {
+    cd ${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
+    install -D -m644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

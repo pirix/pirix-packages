@@ -2,43 +2,45 @@ pkgname=pirix
 pkgver=20130116
 pkgrel=1
 pkgdesc="pirix kernel"
-arch=(armv6)
+arch=(i386 armv6)
 url="http://www.pirix.org"
 license=GPL3
-makedepends=("git" "cmake>=2.8")
+group=(base)
+makedepends=(git)
 
 _gitroot="git://github.com/pirix/pirix.git"
 _gitname="pirix"
 
 build() {
-  cd "${srcdir}"
+    cd "${srcdir}"
 
-  msg "Connecting to GIT server...."
+    msg "Connecting to GIT server...."
 
-  if [ -d $_gitname ] ; then
-    cd $_gitname && git pull origin
-    msg "The local files are updated."
-  else
-    git clone $_gitroot $_gitname
-  fi
+    if [ -d $_gitname ] ; then
+        cd $_gitname && git pull origin
+        msg "The local files are updated."
+    else
+        git clone $_gitroot $_gitname
+    fi
 
-  msg "GIT checkout done or server timeout"
-  msg "Starting make..."
+    msg "GIT checkout done or server timeout"
+    msg "Starting make..."
 
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  cd "$srcdir/$_gitname-build"
+    rm -rf "$srcdir/$_gitname-build"
+    git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
+    cd "$srcdir/$_gitname-build"
 
-  mkdir -p build
-  cd build
-  unset CFLAGS
-  cmake -DCMAKE_INSTALL_PREFIX="" \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DPLATFORM=$PLATFORM ..
-  make || return 1
+    unset CFLAGS
+    scons ARCH=i386 || return 1
 }
 
 package() {
-  cd "${srcdir}/$_gitname-build/build"
-  make DESTDIR="${pkgdir}" install
+    cd "${srcdir}/$_gitname-build/build/i386"
+    install -d ${pkgdir}/boot ${pkgdir}/bin ${pkgdir}/lib
+    install -t ${pkgdir}/boot pirix.img
+    install -t ${pkgdir}/bin kernel/kernel
+    install -t ${pkgdir}/bin servers/vfs/vfs
+    install -t ${pkgdir}/bin servers/login/login
+    install -t ${pkgdir}/lib lib/crt0.o
+    install -t ${pkgdir}/lib lib/libpirix.a
 }

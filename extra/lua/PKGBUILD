@@ -6,19 +6,19 @@ arch=(armv6)
 url="http://www.lua.org"
 license=("MIT")
 makedepends=("")
-source=("http://www.lua.org/ftp/${pkgname}-${pkgver}.tar.gz" "lua.patch")
-md5sums=("ae08f641b45d737d12d30291a5e5f6e3" "a06fd3c55a54a451cfcb6484bdfab0a4")
+source=("http://www.lua.org/ftp/${pkgname}-${pkgver}.tar.gz" "lua-5.2.1.patch")
+md5sums=("ae08f641b45d737d12d30291a5e5f6e3" "115be494c1fca375b7ad0a7a989bcb4d")
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  patch -Np1 -i ../lua.patch
-  make MYCFLAGS="$CFLAGS" MYLDFLAGS="$LDFLAGS" generic || return 1
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    patch -p1 -i ../lua-5.2.1.patch
+    make TARGET=$CHOST MYCFLAGS="$CFLAGS" MYLDFLAGS="$LDFLAGS" generic || return 1
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  make INSTALL_DATA="cp -d" \
-       INSTALL_TOP="$pkgdir/usr" \
-       INSTALL_MAN="$pkgdir/usr/share/man/man1" \
-        install
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    make INSTALL_DATA="cp -d" \
+         INSTALL_TOP="$pkgdir/usr" \
+         INSTALL_MAN="$pkgdir/usr/share/man/man1" \
+         install
 }
