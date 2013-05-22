@@ -8,12 +8,15 @@ MAKEPKG="makepkg --config `pwd`/makepkg-$ARCH.conf"
 PACMAN="sudo pacman --config pacman-local.conf"
 
 PACKAGES=(
+    core/filesystem
     core/pirix
     core/newlib
+    core/ncurses
     core/zlib
     core/freetype2
     core/libpng
     extra/lua
+    extra/ttf-dejavu
 )
 
 ROOT=/tmp/pirix-root
@@ -37,7 +40,7 @@ for PACKAGE in ${PACKAGES[@]}; do
     popd > /dev/null
 
     DEST=/tmp/pirix-repo/$ARCH/$REPO
-    FILE=$(ls $PACKAGE/ | grep $ARCH.pkg | head -n 1)
+    FILE=$(ls $PACKAGE/ | grep -E "($ARCH|any).pkg" | head -n 1)
 
     mkdir -p $DEST
     cp $PACKAGE/$FILE $DEST

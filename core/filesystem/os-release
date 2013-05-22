@@ -1,0 +1,7 @@
+NAME="Pirix"
+ID=pirix
+PRETTY_NAME="Pirix Operating System"
+ANSI_COLOR="0;36"
+HOME_URL="http://www.pirix.org/"
+SUPPORT_URL="http://www.pirix.org/"
+BUG_REPORT_URL="http://www.pirix.org/"

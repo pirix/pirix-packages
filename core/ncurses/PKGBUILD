@@ -1,0 +1,35 @@
+pkgname=ncurses
+pkgver=5.9
+pkgrel=1
+pkgdesc="System V Release 4.0 curses emulation library"
+arch=(i386 armv6)
+url="http://www.gnu.org/software/ncurses/"
+license=("GPL")
+groups=(base)
+source=("http://ftp.gnu.org/pub/gnu/ncurses/${pkgname}-${pkgver}.tar.gz" "${pkgname}-5.9.patch")
+md5sums=("8cb9c412e5f2d96bc6f459aa8c6282a1" "ed811e6ae4e8b2269c89c8a6978ca74f")
+
+build() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    patch -p1 -i ${srcdir}/${pkgname}-5.9.patch
+
+    ./configure \
+      --without-cxx \
+      --without-ada \
+      --without-tests \
+      --without-dlsym \
+      --without-progs \
+      --host=$CHOST \
+      --target=$CHOST \
+      --with-build-cc=gcc \
+      --with-terminfo-dirs=/usr/share/terminfo \
+      --with-default-terminfo-dir=/usr/share/terminfo \
+      --prefix=/usr
+
+    make || return 1
+}
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    make DESTDIR="${pkgdir}" install
+}

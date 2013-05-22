@@ -5,7 +5,7 @@ pkgdesc="compression library"
 arch=(i386 armv6)
 url="http://www.zlib.net"
 license=(MIT)
-group=(base)
+groups=(base)
 source=("http://zlib.net/zlib-1.2.8.tar.gz")
 md5sums=("44d667c142d7cda120332623eab69f40")
 

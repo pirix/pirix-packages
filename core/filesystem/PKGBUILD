@@ -1,0 +1,59 @@
+pkgname=filesystem
+pkgver=2013.05
+pkgrel=1
+pkgdesc='Base filesystem'
+arch=(any)
+license=("GPL")
+url='http://www.pirix.org'
+groups=(base)
+backup=("etc/group" "etc/hosts" "etc/passwd" "etc/shadow" "etc/motd" "etc/issue")
+source=("group" "hosts" "passwd" "issue" "shadow" "motd" "os-release")
+
+md5sums=("26a96329a5523e5c11c50be58e6758c8"
+         "7bc65f234dfb6abf24e7c3b03e86f4ff"
+         "cf5764d206e37c98e6e2f7f09c430e45"
+         "1df3f0625365c95edbc7eb5e3b4c4518"
+         "7cc0d3e777ccb03f91e979c3aab296a0"
+         "d41d8cd98f00b204e9800998ecf8427e"
+         "31d625dae4699a4019ddcaa5afb57cc1")
+
+build() {
+    cd ${srcdir}
+}
+
+package() {
+    cd ${pkgdir}
+
+    for d in bin boot dev etc home lib mnt sbin usr var; do
+        install -d -m755 ${d}
+    done
+
+    install -d -m0750 root
+    install -d -m1777 tmp
+
+    # setup /etc
+    for f in group hosts issue motd os-release passwd shadow; do
+        install -m644 ${srcdir}/${f} etc/
+    done
+
+    # setup /usr
+    for d in bin include lib local sbin share/misc; do
+        install -d -m755 usr/${d}
+    done
+
+    # setup /usr/share/man
+    for d in $(seq 8); do
+        install -d -m755 usr/share/man/man${d}
+    done
+
+    # setup /usr/local
+    for d in bin etc games include lib man sbin share src; do
+        install -d -m755 usr/${d}
+    done
+
+    # setup /var
+    for d in cache lib/misc local lock log run; do
+        install -d -m755 var/${d}
+    done
+    install -d -m1777 var/{tmp,spool}
+}

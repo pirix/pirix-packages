@@ -1,0 +1,42 @@
+diff -aur ncurses-5.9-fresh/config.sub ncurses-5.9/config.sub
+--- ncurses-5.9-fresh/config.sub	2010-09-11 00:25:58.000000000 +0200
++++ ncurses-5.9/config.sub	2013-05-22 13:59:28.611432698 +0200
+@@ -1300,7 +1300,7 @@
+ 	# The portable systems comes first.
+ 	# Each alternative MUST END IN A *, to match a version number.
+ 	# -sysv* is not here because it comes later, after sysvr4.
+-	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
++	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* | -pirix* \
+ 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
+ 	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
+ 	      | -sym* | -kopensolaris* \
+diff -aur ncurses-5.9-fresh/configure ncurses-5.9/configure
+--- ncurses-5.9-fresh/configure	2011-04-01 01:35:51.000000000 +0200
++++ ncurses-5.9/configure	2013-05-22 13:59:45.431446195 +0200
+@@ -95,7 +95,7 @@
+ # Initializations.
+ #
+ ac_default_prefix=/usr/local
+-cross_compiling=no
++cross_compiling=yes
+ subdirs=
+ MFLAGS= MAKEFLAGS=
+ SHELL=${CONFIG_SHELL-/bin/sh}
+@@ -522,17 +522,6 @@
+ host=$host_alias
+ target=$target_alias
+ 
+-# FIXME: should be removed in autoconf 3.0.
+-if test "x$host_alias" != x; then
+-  if test "x$build_alias" = x; then
+-    cross_compiling=maybe
+-    echo "$as_me: WARNING: If you wanted to set the --build type, don't use --host.
+-    If a cross compiler is detected then cross compile mode will be used." >&2
+-  elif test "x$build_alias" != "x$host_alias"; then
+-    cross_compiling=yes
+-  fi
+-fi
+-
+ ac_tool_prefix=
+ test -n "$host_alias" && ac_tool_prefix=$host_alias-
+ 

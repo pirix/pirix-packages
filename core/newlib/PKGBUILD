@@ -5,7 +5,7 @@ pkgdesc="C standard library"
 arch=(i386 armv6)
 url="http://sourceware.org/newlib/"
 license=(BSD)
-group=(base)
+groups=(base)
 source=(
   "ftp://sourceware.org/pub/${pkgname}/${pkgname}-${pkgver}.tar.gz"
   "${pkgname}-2.0.0.patch"
@@ -20,7 +20,7 @@ build() {
 
     patch -p1 -i $srcdir/${pkgname}-2.0.0.patch
 
-    ./configure --prefix=/usr --target=$CHOST \
+    ./configure --prefix=/usr --exec-prefix=/usr --target=$CHOST \
       --enable-interwork --with-gnu-ld --with-gnu-as \
       --without-libgloss --disable-libgloss \
       --disable-newlib-supplied-syscalls
@@ -30,5 +30,6 @@ build() {
 
 package() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-    make DESTDIR="${pkgdir}" install
+    make tooldir=/usr DESTDIR="${pkgdir}" install
+    rm ${pkgdir}/usr/include/unctrl.h
 }

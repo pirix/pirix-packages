@@ -5,7 +5,7 @@ pkgdesc="pirix kernel"
 arch=(i386 armv6)
 url="http://www.pirix.org"
 license=GPL3
-group=(base)
+groups=(base)
 makedepends=(git)
 
 _gitroot="git://github.com/pirix/pirix.git"
@@ -35,12 +35,6 @@ build() {
 }
 
 package() {
-    cd "${srcdir}/$_gitname-build/build/i386"
-    install -d ${pkgdir}/boot ${pkgdir}/bin ${pkgdir}/lib
-    install -t ${pkgdir}/boot pirix.img
-    install -t ${pkgdir}/bin kernel/kernel
-    install -t ${pkgdir}/bin servers/vfs/vfs
-    install -t ${pkgdir}/bin servers/login/login
-    install -t ${pkgdir}/lib lib/crt0.o
-    install -t ${pkgdir}/lib lib/libpirix.a
+    cd "${srcdir}/$_gitname-build"
+    scons ARCH=i386 INSTALLPATH=${pkgdir} install
 }
