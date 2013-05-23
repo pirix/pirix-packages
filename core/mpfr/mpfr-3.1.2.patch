@@ -1,0 +1,12 @@
+diff -aur mpfr-3.1.2-fresh/config.sub mpfr-3.1.2/config.sub
+--- mpfr-3.1.2-fresh/config.sub	2013-03-13 16:38:21.000000000 +0100
++++ mpfr-3.1.2/config.sub	2013-05-23 13:07:24.032384817 +0200
+@@ -1343,7 +1343,7 @@
+ 	# The portable systems comes first.
+ 	# Each alternative MUST END IN A *, to match a version number.
+ 	# -sysv* is not here because it comes later, after sysvr4.
+-	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
++	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* | -pirix* \
+ 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
+ 	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
+ 	      | -sym* | -kopensolaris* \

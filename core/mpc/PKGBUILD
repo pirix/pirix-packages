@@ -1,0 +1,23 @@
+pkgname=mpc
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Library for the arithmetic of complex numbers with arbitrarily high precision"
+arch=(i386 armv6)
+url="http://www.multiprecision.org/"
+license=("LGPL")
+source=("http://www.multiprecision.org/mpc/download/mpc-${pkgver}.tar.gz" "${pkgname}-1.0.1.patch")
+md5sums=("b32a2e1a3daa392372fbd586d1ed3679" "464fd6d0a2bc08073a47e0065a64fee3")
+
+build() {
+  cd "${srcdir}/mpc-${pkgver}"
+  patch -p1 -i ${srcdir}/${pkgname}-1.0.1.patch
+  ./configure --prefix=/usr --host=${CHOST}
+  make
+}
+
+package() {
+  cd "${srcdir}/mpc-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+  mv ${pkgdir}/usr/share/info/{mpc,libmpc}.info
+}
+

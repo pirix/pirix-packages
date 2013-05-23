@@ -1,0 +1,12 @@
+diff -aur gmp-5.1.2-fresh/configfsf.sub gmp-5.1.2/configfsf.sub
+--- gmp-5.1.2-fresh/configfsf.sub	2013-05-20 16:59:56.000000000 +0200
++++ gmp-5.1.2/configfsf.sub	2013-05-23 12:42:39.057403854 +0200
+@@ -1354,7 +1354,7 @@
+ 	# The portable systems comes first.
+ 	# Each alternative MUST END IN A *, to match a version number.
+ 	# -sysv* is not here because it comes later, after sysvr4.
+-	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
++	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* | -pirix* \
+ 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
+ 	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
+ 	      | -sym* | -kopensolaris* \

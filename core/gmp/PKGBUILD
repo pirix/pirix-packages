@@ -1,0 +1,22 @@
+pkgname=gmp
+pkgver=5.1.2
+pkgrel=1
+pkgdesc="A free library for arbitrary precision arithmetic"
+arch=(i386 armv6)
+url="http://gmplib.org/"
+license=("LGPL3")
+options=("!libtool")
+source=(ftp://ftp.gmplib.org/pub/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.xz ${pkgname}-5.1.2.patch)
+md5sums=("06fe2ca164221c59ce74867155cfc1ac" "2211fc3e24d95937ce16ea7702e2d23a")
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -p1 -i ${srcdir}/${pkgname}-5.1.2.patch
+  ./configure --host=${CHOST} --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" install
+}

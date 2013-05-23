@@ -1,5 +1,5 @@
 pkgname=pirix
-pkgver=20130116
+pkgver=20130523
 pkgrel=1
 pkgdesc="pirix kernel"
 arch=(i386 armv6)

@@ -11,6 +11,9 @@ PACKAGES=(
     core/filesystem
     core/pirix
     core/newlib
+    core/gmp
+    core/mpfr
+    core/mpc
     core/ncurses
     core/zlib
     core/freetype2
